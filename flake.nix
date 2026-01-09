@@ -9,7 +9,7 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
   in {
-    packages.${system}.crossover = pkgs.buildFHSUserEnv {
+    packages.${system}.crossover = pkgs.buildFHSUserEnvBubblewrap {
       name = "crossover";
 
       targetPkgs = pkgs: with pkgs; [

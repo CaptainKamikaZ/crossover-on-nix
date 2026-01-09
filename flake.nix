@@ -7,13 +7,16 @@
 
   outputs = { self, nixpkgs }: let
     system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+    fhs = pkgs.callPackage pkgs.nixos.buildFHSUserEnv {};
   in {
-    packages.${system}.crossover = pkgs.buildFHSUserEnvBubblewrap {
+    packages.${system}.crossover = fhs {
       name = "crossover";
 
       targetPkgs = pkgs: with pkgs; [
-        # Core runtime
         glibc
         gcc
         zlib
@@ -38,7 +41,6 @@
         vulkan-tools
         vulkan-validation-layers
 
-        # Wine/CrossOver dependencies
         fontconfig
         freetype
         libpng

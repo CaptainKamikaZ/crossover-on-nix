@@ -1,5 +1,5 @@
 {
-  description = "Launch installed CrossOver runtime inside FHS sandbox";
+  description = "CrossOver runtime wrapped in an FHS environment for NixOS";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -18,22 +18,32 @@
       name = "crossover-runtime";
 
       targetPkgs = pkgs: with pkgs; [
+        # Core system libs
         glibc
         gcc
         zlib
         dbus
         fuse
+        coreutils
+
+        # GTK stack
         gtk3
         gtk4
         gsettings-desktop-schemas
         libxkbcommon
+
+        # XML + NSS
         libxml2
         libxslt
         nss
         nspr
+
+        # Printing + audio
         cups
         alsa-lib
         pulseaudio
+
+        # Graphics + Vulkan
         libGL
         libGLU
         mesa
@@ -42,12 +52,14 @@
         vulkan-tools
         vulkan-validation-layers
 
+        # Fonts + images
         fontconfig
         freetype
         libpng
         libjpeg
         libtiff
 
+        # X11 stack
         xorg.libXrandr
         xorg.libXrender
         xorg.libXcomposite
@@ -60,9 +72,16 @@
         xorg.libXinerama
         xorg.libXxf86vm
 
-        perl
+        # Python + Perl
         python3
-        coreutils
+        perl
+
+        # Fixes for CrossOver warnings
+        openssl
+        gobject-introspection
+        pygobject3
+        vte
+        vte-gtk3
       ];
 
       runScript = ''

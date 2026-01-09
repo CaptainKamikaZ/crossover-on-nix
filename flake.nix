@@ -81,7 +81,6 @@
         gobject-introspection
         python3Packages.pygobject3
         vte
-        vte-gtk3
       ];
 
       runScript = ''

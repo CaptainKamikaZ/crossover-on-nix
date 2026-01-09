@@ -12,7 +12,7 @@
       config.allowUnfree = true;
     };
 
-    # Load the FHS builder manually
+    # Load the FHS builder manually from nixpkgs
     fhs = pkgs.callPackage "${nixpkgs}/nixos/lib/build-fhs-user-env.nix" {};
   in {
     packages.${system}.crossover = fhs {

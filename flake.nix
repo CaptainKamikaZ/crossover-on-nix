@@ -11,15 +11,11 @@
       inherit system;
       config.allowUnfree = true;
     };
-
-    # Load the FHS builder manually from nixpkgs
-    fhs = pkgs.callPackage "${nixpkgs}/nixos/lib/build-fhs-user-env.nix" {};
   in {
-    packages.${system}.crossover = fhs {
+    packages.${system}.crossover = pkgs.buildFHSUserEnv {
       name = "crossover";
 
       targetPkgs = pkgs: with pkgs; [
-        # Core runtime
         glibc
         gcc
         zlib
@@ -44,7 +40,6 @@
         vulkan-tools
         vulkan-validation-layers
 
-        # Wine/CrossOver dependencies
         fontconfig
         freetype
         libpng

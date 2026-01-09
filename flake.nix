@@ -11,7 +11,7 @@
       inherit system;
       config.allowUnfree = true;
     };
-    fhs = pkgs.callPackage pkgs.nixos.buildFHSUserEnv {};
+    fhs = pkgs.nixos.buildFHSUserEnv;
   in {
     packages.${system}.crossover = fhs {
       name = "crossover";

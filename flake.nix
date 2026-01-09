@@ -7,9 +7,16 @@
 
   outputs = { self, nixpkgs }: let
     system = "x86_64-linux";
+
+    # Import nixpkgs with overlays to expose buildFHSUserEnv
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      overlays = [
+        (final: prev: {
+          buildFHSUserEnv = import "${nixpkgs}/nixos/lib/build-fhs-user-env.nix" final;
+        })
+      ];
     };
   in {
     packages.${system}.crossover = pkgs.buildFHSUserEnv {

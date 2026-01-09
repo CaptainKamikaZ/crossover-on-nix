@@ -59,6 +59,9 @@
         xorg.libXcursor
         xorg.libXinerama
         xorg.libXxf86vm
+
+        perl
+        python3
       ];
 
       runScript = ''

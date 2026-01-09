@@ -7,13 +7,14 @@
 
   outputs = { self, nixpkgs }: let
     system = "x86_64-linux";
+
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
     };
-    fhs = pkgs.buildFHSUserEnv;
+
   in {
-    packages.${system}.crossover = pkgs.buildFHSUserEnv {
+    packages.${system}.crossover = pkgs.buildFHSEnvBubblewrap {
       name = "crossover";
 
       targetPkgs = pkgs: with pkgs; [
@@ -62,13 +63,6 @@
       runScript = ''
         bash /home/justin/packages/crossover-on-nix/install-crossover-24.0.6.bin
       '';
-
-      extraMounts = [
-        {
-          source = "/home/justin/.cxoffice";
-          target = "/home/justin/.cxoffice";
-        }
-      ];
     };
 
     apps.${system}.crossover = {

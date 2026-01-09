@@ -1,5 +1,5 @@
 {
-  description = "CrossOver wrapper for NixOS using FHS environment";
+  description = "Launch installed CrossOver runtime inside FHS sandbox";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -15,7 +15,7 @@
 
   in {
     packages.${system}.crossover = pkgs.buildFHSEnvBubblewrap {
-      name = "crossover";
+      name = "crossover-runtime";
 
       targetPkgs = pkgs: with pkgs; [
         glibc
@@ -62,16 +62,17 @@
 
         perl
         python3
+        coreutils
       ];
 
       runScript = ''
-        bash /home/justin/packages/crossover-on-nix/install-crossover-24.0.6.bin
+        ~/cxoffice/bin/crossover
       '';
     };
 
     apps.${system}.crossover = {
       type = "app";
-      program = "${self.packages.${system}.crossover}/bin/crossover";
+      program = "${self.packages.${system}.crossover}/bin/crossover-runtime";
     };
   };
 }

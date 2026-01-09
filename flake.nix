@@ -2,7 +2,7 @@
   description = "CrossOver wrapper for NixOS using FHS environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/5912c1772a44e31bf1c63c0390b95015e0268862";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
   outputs = { self, nixpkgs }: let
@@ -11,6 +11,7 @@
       inherit system;
       config.allowUnfree = true;
     };
+    fhs = pkgs.buildFHSUserEnv;
   in {
     packages.${system}.crossover = pkgs.buildFHSUserEnv {
       name = "crossover";

@@ -76,10 +76,10 @@
         python3
         perl
 
-        # Fixes for CrossOver warnings
+        # CrossOver diagnostics fixes
         openssl
         gobject-introspection
-        pygobject3
+        python3Packages.pygobject3
         vte
         vte-gtk3
       ];

@@ -2,21 +2,14 @@
   description = "CrossOver wrapper for NixOS using FHS environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/5912c1772a44e31bf1c63c0390b95015e0268862";
   };
 
   outputs = { self, nixpkgs }: let
     system = "x86_64-linux";
-
-    # Import nixpkgs with overlays to expose buildFHSUserEnv
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = [
-        (final: prev: {
-          buildFHSUserEnv = import "${nixpkgs}/nixos/lib/build-fhs-user-env.nix" final;
-        })
-      ];
     };
   in {
     packages.${system}.crossover = pkgs.buildFHSUserEnv {

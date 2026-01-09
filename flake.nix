@@ -47,17 +47,18 @@
         libpng
         libjpeg
         libtiff
-        libxrandr
-        libxrender
-        libxcomposite
-        libxdamage
-        libxfixes
-        libxext
-        libx11
-        libxi
-        libxcursor
-        libxinerama
-        libxxf86vm
+
+        xorg.libXrandr
+        xorg.libXrender
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libXfixes
+        xorg.libXext
+        xorg.libX11
+        xorg.libXi
+        xorg.libXcursor
+        xorg.libXinerama
+        xorg.libXxf86vm
       ];
 
       runScript = ''
